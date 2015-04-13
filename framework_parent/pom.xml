@@ -156,6 +156,8 @@
 		 </dependencies>
 	 </dependencyManagement>
 	 <build>
+	 	<!-- 依赖的插件配置 -->
+	 	<!-- 
 	 	<plugins>
 	 		<plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -213,5 +215,6 @@
 				<version>2.4.3</version>
 			</plugin>
 		</plugins>
+		-->
 	 </build>
 </project>
