@@ -14,12 +14,12 @@
 		<module>framework_web_resource</module>
 		<module>framework_entity</module>
 		<module>framework_db</module>
-		<!-- <module>framework_web_websocket</module> -->
+		<module>framework_web_websocket</module>
 		<module>framework_web_mvc</module>
 		<module>framework_web_socket</module>
 		<module>framework_job</module>
 		<module>framework_interface</module>
-		<module>framework_solr</module>
+		<module>framework_lucence</module>
 		<module>framework_mail</module>
 	</modules>
 	
@@ -215,13 +215,19 @@
 			<dependency>
 				<groupId>org.slf4j</groupId>
 				<artifactId>slf4j-api</artifactId>
-				<version>1.5.11</version>
+				<version>1.7.0</version>
 			</dependency>
 			
 			<dependency>
-				<groupId>org.slf4j</groupId>
-				<artifactId>slf4j-api</artifactId>
-				<version>1.7.0</version>
+			    <groupId>jdom</groupId>
+			    <artifactId>jdom</artifactId>
+			    <version>1.1</version>
+			</dependency>
+			
+			<dependency>
+			    <groupId>com.alibaba</groupId>
+			    <artifactId>fastjson</artifactId>
+			    <version>1.2.5</version>
 			</dependency>
 		 </dependencies>
 	 </dependencyManagement>
