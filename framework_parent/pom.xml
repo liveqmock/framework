@@ -6,27 +6,27 @@
 	<packaging>pom</packaging>
   
 	<modules>
-		<module>framework_core</module>
-		<module>framework_log</module>
-		<module>framework_shiro</module>
-		<module>framework_redis</module>
-		<module>framework_validate</module>
-		<module>framework_web_resource</module>
-		<module>framework_entity</module>
-		<module>framework_db</module>
-		<module>framework_web_websocket</module>
-		<module>framework_web_mvc</module>
-		<module>framework_web_socket</module>
-		<module>framework_job</module>
-		<module>framework_interface</module>
-		<module>framework_lucence</module>
-		<module>framework_mail</module>
+		<module>。。/framework_core</module>
+		<module>。。/framework_log</module>
+		<module>。。/framework_shiro</module>
+		<module>。。/framework_redis</module>
+		<module>。。/framework_validate</module>
+		<module>。。/framework_web_resource</module>
+		<module>。。/framework_entity</module>
+		<module>。。/framework_db</module>
+		<module>。。/framework_web_websocket</module>
+		<module>。。/framework_web_mvc</module>
+		<module>。。/framework_web_socket</module>
+		<module>。。/framework_job</module>
+		<module>。。/framework_interface</module>
+		<module>。。/framework_lucence</module>
+		<module>。。/framework_mail</module>
 	</modules>
 	
 	<!-- 定义公共变量 -->  
 	<properties>
 		<spring.framework>org.springframework</spring.framework>
-	    <spring.version>4.1.6.RELEASE</spring.version> 
+	    <spring.version>4.1.6.RELEASE</spring.version>
 	</properties>
 	
 	<dependencyManagement>
