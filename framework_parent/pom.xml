@@ -231,6 +231,8 @@
 		 </dependencies>
 	 </dependencyManagement>
 	 <build>
+	 <!-- 最好不要使用插件，可能会引起报错 -->
+	 <!-- 
 	 	<plugins>
 	 		<plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -288,5 +290,6 @@
 				<version>2.4.3</version>
 			</plugin>
 		</plugins>
+		 -->
 	 </build>
 </project>
