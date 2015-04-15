@@ -4,6 +4,7 @@
     <groupId>com.rainy</groupId>
     <artifactId>framework_parent</artifactId>
     <version>0.0.1</version>
+    <relativePath>../framework_parent/pom.xml</relativePath>
   </parent>
   <artifactId>framework_mail</artifactId>
 </project>
