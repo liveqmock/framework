@@ -20,6 +20,7 @@
 		<module>framework_job</module>
 		<module>framework_interface</module>
 		<module>framework_solr</module>
+		<module>framework_mail</module>
 	</modules>
 	
 	<!-- 定义公共变量 -->  
