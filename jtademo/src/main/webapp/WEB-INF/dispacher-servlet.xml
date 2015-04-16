@@ -1,0 +1,128 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/tx
+    	http://www.springframework.org/schema/tx/spring-tx.xsd
+    	http://www.springframework.org/schema/aop
+    	http://www.springframework.org/schema/aop/spring-aop.xsd">
+    	
+	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath*:jdbc.properties</value>
+            </list>
+        </property>
+    </bean>
+	<context:annotation-config />
+	<context:component-scan base-package="com.javahash.spring.controller" />
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix">
+			<value>/WEB-INF/views/</value>
+		</property>
+		<property name="suffix">
+			<value>.jsp</value>
+		</property>
+	</bean>
+	
+	<!-- 
+	<bean id="dataSource1" class="com.atomikos.jdbc.AtomikosDataSourceBean"  
+        init-method="init" destroy-method="close">  
+        <property name="uniqueResourceName">  
+            <value>mysql/dataSource1</value>
+        </property>  
+        <property name="xaDataSourceClassName">  
+            <value>${jdbc.driver}</value>  
+        </property>  
+        <property name="xaProperties">  
+            <props>  
+                <prop key="URL">${jdbc.urla}</prop>  
+                <prop key="user">${jdbc.usernamea}</prop>  
+                <prop key="password">${jdbc.passworda}</prop>  
+            </props>  
+        </property>  
+        <property name="poolSize">  
+            <value>2</value>  
+        </property>  
+        <property name="maxPoolSize">  
+            <value>30</value>
+        </property>  
+    </bean>
+    
+    <bean id="mysqlSessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">  
+	    <property name="dataSource" ref="dataSource1"></property>  
+	    <property name="packagesToScan" value="com/rainy/jta"/>  
+	    <property name="hibernateProperties">  
+	        <props>  
+	            <prop key="hibernate.show_sql">true</prop>  
+	            <prop key="hibernate.format_sql">true</prop>  
+	            <prop key="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</prop>  
+	        </props>  
+	    </property>  
+	</bean>
+    -->
+    
+	<bean id="mysqlJtaA" class="org.enhydra.jdbc.pool.StandardXAPoolDataSource" destroy-method="shutdown">  
+		<!-- 内部XA数据源-->
+		<property name="dataSource">
+			<bean class="org.enhydra.jdbc.standard.StandardXADataSource" destroy-method="shutdown">
+				<property name="transactionManager" ref="jotm"/>
+				<property name="driverName" value="${jdbc.driver}"/>
+				<property name="url" value="${jdbc.urla}"/>
+				<property name="user" value="${jdbc.usernamea}"/>
+				<property name="password" value="${jdbc.passworda}"/>
+			</bean>
+		</property>
+		<property name="user" value="${jdbc.usernamea}"/>
+		<property name="password" value="${jdbc.passworda}"/>
+	</bean>
+	
+	<bean id="mysqlJtaB" class="org.enhydra.jdbc.pool.StandardXAPoolDataSource" destroy-method="shutdown">  
+		<!-- 内部XA数据源-->
+		<property name="dataSource">
+			<bean class="org.enhydra.jdbc.standard.StandardXADataSource" destroy-method="shutdown">
+				<property name="transactionManager" ref="jotm"/>
+				<property name="driverName" value="${jdbc.driver}"/>
+				<property name="url" value="${jdbc.urlb}"/>
+				<property name="user" value="${jdbc.usernameb}"/>
+				<property name="password" value="${jdbc.passwordb}"/>
+			</bean>
+		</property>
+		<property name="user" value="${jdbc.usernameb}"/>
+		<property name="password" value="${jdbc.passwordb}"/>
+	</bean>
+    
+    <!-- JOTM本地实例 -->
+    <bean id="jotm" class="org.springframework.transaction.jta.JotmFactoryBean" />
+
+	<!-- JTA事务管理器 -->
+    <bean id="txManager" class="org.springframework.transaction.jta.JtaTransactionManager">
+        <property name="userTransaction" ref="jotm"/>
+    </bean>
+
+    <!-- JTA事务传播特性 -->
+    <tx:advice id="txAdviceJta" transaction-manager="txManager">
+        <tx:attributes>
+         <tx:method name="Jta*" isolation="DEFAULT" propagation="REQUIRED" rollback-for="Exception"/>
+         <tx:method name="*" read-only="true"/> 
+        </tx:attributes>
+    </tx:advice>
+    
+    <aop:config>
+        <aop:advisor pointcut="execution(* com.rainy.jta.service.impl..*(..))"   advice-ref="txAdviceJta" />
+    </aop:config>
+    
+    <!-- 配置数据源对象 -->
+    <bean id="baseDao" class="com.rainy.jta.dao.impl.JdbcDaoImpl" scope="prototype">
+        <property name="dataSource" ref="mysqlJtaA"></property>
+    </bean>
+    <bean id="baseDao" class="com.rainy.jta.dao.impl.HibernateDaoImpl" scope="prototype">
+        <property name="dataSource" ref="mysqlJtaB"></property>
+    </bean>
+    
+</beans>
