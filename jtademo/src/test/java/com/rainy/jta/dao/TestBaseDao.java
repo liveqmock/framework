@@ -7,6 +7,8 @@ import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import com.rainy.jta.domain.entity.User;
+
 public class TestBaseDao extends TestCase {
 	
 	ApplicationContext applicationContext = null;
@@ -20,7 +22,9 @@ public class TestBaseDao extends TestCase {
 	public void testSave () {
 		// IBaseDao baseDao = (IBaseDao)applicationContext.containsBean("");
 		// baseDao.save("insert into a (a) value ('1')");
-		System.out.println(applicationContext.containsBean("jdbcBaseDao"));
+		User u = new User();
+		IBaseDao<User> baseDao = (IBaseDao<User>)applicationContext.getBean("jdbcBaseDao");
+		baseDao.save(u);
 	}
 
 }
