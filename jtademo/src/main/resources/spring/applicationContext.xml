@@ -91,7 +91,7 @@
 	    <property name="uniqueResourceName" value="mysql/jtaSourceA" />
 	    <property name="xaDataSourceClassName" value="${jdbc.driver}" />  
 	    <property name="xaProperties">  
-	        <props>  
+	        <props>
 	            <prop key="user">${jdbc.usernamea}</prop>  
 	            <prop key="password">${jdbc.passworda}</prop>  
 	            <prop key="URL">${jdbc.urla}</prop>  
