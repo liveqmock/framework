@@ -13,7 +13,7 @@ public class TestBaseDao extends TestCase {
 	
 	@Before
 	public void setUp () {
-		applicationContext = new ClassPathXmlApplicationContext("/WEB-INF/dispacher-servlet.xml");
+		applicationContext = new ClassPathXmlApplicationContext("classpath:spring/application*.xml");
 	}
 	
 	@Test
