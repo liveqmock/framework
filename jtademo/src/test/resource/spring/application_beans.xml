@@ -27,4 +27,11 @@
     <bean id="jdbcSpringTemplat" class="org.springframework.jdbc.core.JdbcTemplate">
     	<property name="dataSource" ref="jtaSourceB"></property>
     </bean>
+    
+    
+    <!-- service 配置 -->
+    <bean id="baseService" class="com.rainy.jta.service.impl.BaseServiceImpl">
+    	<property name="hibernateJdbcDao" ref="hibernateJdbcDao"></property>
+    	<property name="jdbcTemplateDao" ref="jdbcTemplateDao"></property>
+    </bean>
 </beans>
