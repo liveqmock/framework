@@ -10,7 +10,7 @@ public class BaseDaoImpl<T> implements IBaseDao<T> {
 
 	public void save(T t) {
 		StringBuffer sql = new StringBuffer();
-		sql.append("insert into jtatest(id, name) value (2, 'zhangsan')");
+		sql.append("insert into jtatest(id, name) value (6, 'zhangsan')");
 		jdbcTemplate.update(sql.toString());
 	}
 
