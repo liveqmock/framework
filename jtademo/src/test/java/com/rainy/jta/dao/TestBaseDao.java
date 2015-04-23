@@ -1,7 +1,5 @@
 package com.rainy.jta.dao;
 
-import junit.framework.TestCase;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
@@ -9,7 +7,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.rainy.jta.domain.entity.User;
 
-public class TestBaseDao extends TestCase {
+public class TestBaseDao {
 	
 	ApplicationContext applicationContext = null;
 	
