@@ -1,20 +1,11 @@
 package com.rainy.jta.dao;
 
-import org.junit.Before;
 import org.junit.Test;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import com.rainy.jta.BaseTest;
 import com.rainy.jta.domain.entity.User;
 
-public class TestBaseDao {
-	
-	ApplicationContext applicationContext = null;
-	
-	@Before
-	public void setUp () {
-		applicationContext = new ClassPathXmlApplicationContext("classpath:spring/application*.xml");
-	}
+public class TestBaseDao extends BaseTest {
 	
 	@Test
 	public void testSave () {

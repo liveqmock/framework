@@ -16,7 +16,8 @@ public class JdbcDaoImpl<T> extends BaseDaoImpl<T> {
 	
 	public void save (T t) {
 		StringBuffer sql = new StringBuffer();
-		sql.append("insert into jtatest(id, name) value (9, 'zhangsan')");
+		sql.append("insert into jtatest(id, name) value (2, 'zhangsan')");
 		jdbcTemplateDao.update(sql.toString());
+		throw new RuntimeException("异常");
 	}
 }
