@@ -16,7 +16,7 @@ public class HibernateDaoImpl<T> extends BaseDaoImpl<T> {
 	
 	public void save (T t) {
 		StringBuffer sql = new StringBuffer();
-		sql.append("insert into jtatest(id, name) value (2, 'zhangsan')");
+		sql.append("insert into jtatest(id, name) value (5, 'zhangsan')");
 		hibernateJdbcTemplate.update(sql.toString());
 	}
 }

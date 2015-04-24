@@ -22,21 +22,20 @@
         <property name="jdbcTemplate" ref="jdbcTemplate"></property>
     </bean>
     <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
-    	<property name="dataSource" ref="jtaSourceA"></property>
+    	<property name="dataSource" ref="dataSource"></property>
     </bean>
     <bean id="hibernateJdbcDao" class="com.rainy.jta.dao.impl.HibernateDaoImpl" scope="prototype">
         <property name="hibernateJdbcTemplate" ref="hibernateJdbcTemplate"></property>
     </bean>
     <bean id="hibernateJdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
-    	<property name="dataSource" ref="jtaSourceA"></property>
+    	<property name="dataSource" ref="dataSource"></property>
     </bean>
     <bean id="jdbcTemplateDao" class="com.rainy.jta.dao.impl.JdbcDaoImpl">
         <property name="jdbcTemplateDao" ref="jdbcSpringTemplat"></property>
     </bean>
     <bean id="jdbcSpringTemplat" class="org.springframework.jdbc.core.JdbcTemplate">
-    	<property name="dataSource" ref="jtaSourceB"></property>
+    	<property name="dataSource" ref="dataSource"></property>
     </bean>
-    
     
     <!-- service 配置 -->
     <bean id="baseService" class="com.rainy.jta.service.impl.BaseServiceImpl">

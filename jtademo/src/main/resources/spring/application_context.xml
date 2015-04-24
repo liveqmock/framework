@@ -57,6 +57,20 @@
 	    <property name="testQuery" value="select 1 from dual" />
 	</bean>
     
+    <!-- 统一数据库 -->
+    <bean id="dataSource" class="com.rainy.jta.common.DynamicDataSource">
+        <property name="targetDataSources">
+            <map key-type="java.lang.String">
+                <entry key="slave" value-ref="jtaSourceB" />
+            </map>
+        </property>
+        <property name="defaultTargetDataSource" ref="jtaSourceA"/>
+    </bean>
+    
+    <!-- 数据源动态切换 -->
+    <bean id="dataSourceAdvice" class="com.rainy.jta.common.DataSourceAdvice" />
+    <!-- <bean id="datasourceProperties" class="com.rainy.jta.common.DatasourceProperties" lazy-init="false"/> -->
+    
     <bean id="atomikosTransactionManager" class="com.atomikos.icatch.jta.UserTransactionManager" init-method="init" destroy-method="close">
              <property name="forceShutdown" value="true"/>
      </bean>
@@ -69,18 +83,34 @@
 		<property name="transactionManager" ref="atomikosTransactionManager"/>
 		<property name="userTransaction" ref="atomikosUserTransaction"/>
      </bean>
-
+    <!-- 
+    <bean id="logProxy" class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
+        <property name="proxyTargetClass">
+            <value>false</value>
+        </property>
+        <property name="beanNames">
+            <list>
+                <value>*Dao</value>
+            </list>
+        </property>
+        <property name="interceptorNames">
+            <list>
+                <value>dataSourceAdvice</value>
+            </list>
+        </property>
+    </bean>
+     -->
     <!-- 事务切面配置 -->
 	<aop:config>
-	 <aop:pointcut id="serviceOperation" expression="execution(* *..service.impl..*(..))"/>
-	 <aop:advisor pointcut-ref="serviceOperation" advice-ref="txAdvice"/>
+        <aop:pointcut id="serviceOperation" expression="execution(* com.rainy.jta.service.impl..*(..))"/>
+        <aop:advisor pointcut-ref="serviceOperation" advice-ref="txAdvice"/>
 	</aop:config>
 	<!-- 通知配置 -->
 	<tx:advice id="txAdvice" transaction-manager="springTransactionManager">
 		<tx:attributes>
-			<tx:method name="delete*" rollback-for="Exception"/>
-			<tx:method name="save*" rollback-for="Exception"/>
-			<tx:method name="update*" rollback-for="Exception"/>
+			<tx:method name="delete*" propagation="REQUIRED" rollback-for="Exception"/>
+			<tx:method name="save*" propagation="REQUIRED" rollback-for="Exception"/>
+			<tx:method name="update*" propagation="REQUIRED" rollback-for="Exception"/>
 			<tx:method name="*" read-only="true" rollback-for="Exception"/>
 		</tx:attributes>
 	</tx:advice>
